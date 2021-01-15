@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 
 import Input from "../../shared/components/FormElements/Input";
 import Button from "../../shared/components/FormElements/Button";
+import "./PlaceForm.css";
 import {
 	VALIDATOR_REQUIRE,
 	VALIDATOR_MINLENGTH,
@@ -49,7 +50,7 @@ const UpdatePlace = () => {
 		);
 	}
 	return (
-		<form>
+		<form className="place-form">
 			<Input
 				id='title'
 				element='input'
