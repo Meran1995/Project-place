@@ -14,18 +14,18 @@ const NavLinks = (props) => {
 					ALL USERS
 				</NavLink>
 			</li>
-			{auth.isLoggedInn && (
+			{auth.isLoggedIn && (
 				<li>
 					<NavLink to='/u1/places'>MY PLACES</NavLink>
 				</li>
 			)}
 
-			{auth.isLoggedInn && (
+			{auth.isLoggedIn && (
 				<li>
 					<NavLink to='/places/new'>ADD PLACE</NavLink>
 				</li>
 			)}
-			{!auth.isLoggedInn && (
+			{!auth.isLoggedIn && (
 				<li>
 					<NavLink to='/auth'>AUTHENTICATE</NavLink>
 				</li>
