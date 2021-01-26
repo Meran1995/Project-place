@@ -4,8 +4,16 @@ const bodyParser = require("body-parser");
 // own imports
 const placesRoutes = require("./routes/places-routes");
 const { response } = require("express");
+const HttpError = require("./models/http-error");
 
 const app = express();
+
+app.use(bodyParser.json());
+
+app.use((req, res, next) => {
+	const error = new HttpError("Could not find this route", 404);
+	throw error;
+});
 
 // routing
 // placesRoutes is a middleware
