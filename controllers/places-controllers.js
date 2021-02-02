@@ -1,4 +1,5 @@
 const uuid = require("uuid");
+const { validationResult } = require("express-validator");
 
 const HttpError = require("../models/http-error");
 
@@ -62,6 +63,12 @@ const getPlacesByUserId = (req, res, next) => {
 };
 
 const createPlaces = (req, res, next) => {
+	const errors = validationResult(req);
+	if (!errors.isEmpty()) {
+		console.log(errors);
+		throw new HttpError("invalid inputs passed, please check your data", 422);
+	}
+
 	const { title, description, coordinates, address, creator } = req.body;
 	// const title = req.body.title; long version above the short version
 
@@ -95,9 +102,9 @@ const updatePlace = (req, res, next) => {
 
 const deletePlace = (req, res, next) => {
 	const placeId = req.params.pid;
-	DUMMY_PLACES = DUMMY_PLACES.filter(p => p.id !== placeId);
+	DUMMY_PLACES = DUMMY_PLACES.filter((p) => p.id !== placeId);
 
-	res.status(200).json({message: "Deleted place!"});
+	res.status(200).json({ message: "Deleted place!" });
 };
 
 exports.getPlaceById = getPlaceById;
