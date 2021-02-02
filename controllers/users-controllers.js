@@ -14,8 +14,14 @@ const DUMMY_USERS = [
 const getUsers = (req, res, next) => {
 	res.json({ users: DUMMY_USERS });
 };
+
 const signUp = (req, res, next) => {
 	const { name, email, password } = req.body;
+
+	const hasUser = DUMMY_USERS.find(u => u.email === email);
+	if (hasUser) {
+		throw new HttpError ("Could not create user, email already exists.", 422);
+	}
 
 	const createdUser = {
 		id: uuid(),
@@ -28,8 +34,10 @@ const signUp = (req, res, next) => {
 
 	res.status(201).json({ user: createdUser });
 };
+
 const login = (req, res, next) => {
 	const { email, password } = req.body;
+
 	const identifiedUser = DUMMY_USERS.find((u) => u.email === email);
 	if (!identifiedUser || identifiedUser.password !== password) {
 		throw new HttpError(
@@ -37,7 +45,7 @@ const login = (req, res, next) => {
 			401
 		);
 	}
-	
+
 	res.json({ message: "Logged in!" });
 };
 
