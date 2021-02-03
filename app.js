@@ -1,5 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
 
 // own imports
 const placesRoutes = require("./routes/places-routes");
@@ -28,4 +29,17 @@ app.use((error, req, res, next) => {
 	res.json({ message: error.message || "An unkown error occurred" });
 }); // if you use 4 arguments then JS would recanize it as a special function( Error Function)
 
-app.listen(5000);
+//connect the Database with the Back-End
+mongoose
+	.connect(
+		"mongodb+srv://Meran:1971Mn-mN@cluster0.0edo8.mongodb.net/places?retryWrites=true&w=majority",
+		{ useNewUrlParser: true, useUnifiedTopology: true }
+	)
+	.then(() => {
+		app.listen(5000);
+		console.log("Connected!!");
+	})
+	.catch((err) => {
+		console.log(err);
+		console.log("There is an Error!!");
+	});
