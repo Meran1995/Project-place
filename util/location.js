@@ -5,9 +5,6 @@ const HttpError = require("../models/http-error");
 const API_KEY = "EMPTY";
 
 const getCoordsForAddress = async (address) => {
-	// return { lat: 40.7484405, lng: -73.9878584 }; 
-	// default without the Google Key
-
 	const response = await axios.get(
 		`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
 			address
