@@ -1,8 +1,10 @@
+const mongoose = require("mongoose");
 const { validationResult } = require("express-validator");
 
 const HttpError = require("../models/http-error");
 const getCoordsForAddress = require("../util/location");
 const Place = require("../models/place");
+const User = require("../models/user");
 
 let DUMMY_PLACES = [
 	{
@@ -109,8 +111,29 @@ const createPlaces = async (req, res, next) => {
 		creator,
 	});
 
+	let user;
+
 	try {
-		await createdPlace.save(); //save would handel every mongoDB-code new code to the database...
+		user = await User.findById(creator);
+	} catch (err) {
+		const error = new HttpError("Creating place failed, please try again", 500);
+		return next(error);
+	}
+
+	if (!user) {
+		const error = new HttpError("Could not find user for provided id", 404);
+		return next(error);
+	}
+
+	console.log(user);
+
+	try {
+		const sess = await mongoose.startSession();
+		sess.startSession();
+		await createdPlace.save({ session: sess });
+		user.places.push(createdPlace);
+		await user.save({ session: sess });
+		await sess.commitTransaction();
 	} catch (err) {
 		const error = new HttpError("Creating place failed, please try again", 500);
 		return next(error); // stop our execution
@@ -122,7 +145,9 @@ const createPlaces = async (req, res, next) => {
 const updatePlace = async (req, res, next) => {
 	const errors = validationResult(req);
 	if (!errors.isEmpty()) {
-		return next(new HttpError("Invalid inputs passed, please check your data", 422));
+		return next(
+			new HttpError("Invalid inputs passed, please check your data", 422)
+		);
 	}
 
 	const { title, description } = req.body;
@@ -157,7 +182,7 @@ const updatePlace = async (req, res, next) => {
 
 const deletePlace = async (req, res, next) => {
 	const placeId = req.params.pid;
-	
+
 	let place;
 	try {
 		place = await Place.findById(placeId);
@@ -170,7 +195,7 @@ const deletePlace = async (req, res, next) => {
 	}
 
 	try {
-		await place.remove()
+		await place.remove();
 	} catch (err) {
 		const error = new HttpError(
 			"Somthing went wrong, could not delete place.",

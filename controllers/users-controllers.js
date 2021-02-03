@@ -53,7 +53,7 @@ const signUp = async (req, res, next) => {
 
 	if (existingUser) {
 		const error = new HttpError(
-			"User exist already, please login instead",
+			"User exists already, please login instead",
 			422
 		);
 		return next(error);
@@ -69,7 +69,7 @@ const signUp = async (req, res, next) => {
 	});
 
 	try {
-		await createdPlace.save();
+		await createdUser.save();
 	} catch (err) {
 		const error = new HttpError("Signing up failed, please try again", 500);
 		return next(error);
