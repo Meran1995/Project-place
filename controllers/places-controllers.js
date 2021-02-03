@@ -123,7 +123,7 @@ const createPlaces = async (req, res, next) => {
 const updatePlace = async (req, res, next) => {
 	const errors = validationResult(req);
 	if (!errors.isEmpty()) {
-		throw new HttpError("Invalid inputs passed, please check your data", 422);
+		return next(new HttpError("Invalid inputs passed, please check your data", 422));
 	}
 
 	const { title, description } = req.body;

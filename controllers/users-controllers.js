@@ -20,10 +20,12 @@ const getUsers = (req, res, next) => {
 const signUp = async (req, res, next) => {
 	const errors = validationResult(req);
 	if (!errors.isEmpty()) {
-		throw new HttpError("invalid inputs passed, please check your data", 422);
+		return next(
+			new HttpError("invalid inputs passed, please check your data", 422)
+		);
 	}
 
-	const { name, email, password } = req.body;
+	const { name, email, password, places} = req.body;
 
 	let existingUser;
 	try {
@@ -68,10 +70,10 @@ const login = (req, res, next) => {
 
 	const identifiedUser = DUMMY_USERS.find((u) => u.email === email);
 	if (!identifiedUser || identifiedUser.password !== password) {
-		throw new HttpError(
+		return next(new HttpError(
 			"Could not identify user, credentials seem to be worng",
 			401
-		);
+		));
 	}
 
 	res.json({ message: "Logged in!" });
