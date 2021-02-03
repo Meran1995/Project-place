@@ -29,7 +29,7 @@ app.use((error, req, res, next) => {
 
 mongoose
 	.connect(
-		"mongodb+srv://Meran:1971Mn-mN@cluster0.0edo8.mongodb.net/places?retryWrites=true&w=majority",
+		"mongodb+srv://Meran:1971Mn-mN@cluster0.0edo8.mongodb.net/mern?retryWrites=true&w=majority",
 		{ useNewUrlParser: true, useUnifiedTopology: true }
 	)
 	.then(() => {
