@@ -9,20 +9,20 @@ import {
 import Users from "./user/pages/Users";
 import NewPlace from "./places/pages/NewPlace";
 import UserPlaces from "./places/pages/UserPlaces";
-import MainNavigation from "./shared/components/Navigation/MainNavigation";
-import UpdatePlace from "./places/pages/UpdatePLace";
+import UpdatePlace from "./places/pages/UpdatePlace";
 import Auth from "./user/pages/Auth";
+import MainNavigation from "./shared/components/Navigation/MainNavigation";
 import { AuthContext } from "./shared/context/auth-context";
 
 const App = () => {
-	const [isLoggedIn, setLoggedIn] = useState(false);
+	const [isLoggedIn, setIsLoggedIn] = useState(false);
 
 	const login = useCallback(() => {
-		setLoggedIn(true);
+		setIsLoggedIn(true);
 	}, []);
 
 	const logout = useCallback(() => {
-		setLoggedIn(false);
+		setIsLoggedIn(false);
 	}, []);
 
 	let routes;

@@ -32,9 +32,9 @@ const formReducer = (state, action) => {
 	}
 };
 
-export const useForm = (initialInput, initialFormValidity) => {
+export const useForm = (initialInputs, initialFormValidity) => {
 	const [formState, dispatch] = useReducer(formReducer, {
-		inputs: initialInput,
+		inputs: initialInputs,
 		isValid: initialFormValidity,
 	});
 
