@@ -8,7 +8,7 @@ import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
 
 const UserPlaces = () => {
 	const [loadedPlaces, setLoadedPlaces] = useState();
-	const [isLoading, error, sendRequest, clearError] = useHttpClient();
+	const {isLoading, error, sendRequest, clearError} = useHttpClient();
 	const userId = useParams().userId; 
 
 	useEffect(() => {

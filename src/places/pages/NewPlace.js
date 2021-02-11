@@ -53,7 +53,7 @@ const NewPlace = () => {
 					"Content-Type": "application/json",
 				}
 			);
-			history.push("/");// Redirect the user to a diffrent page
+			history.push("/"); // Redirect the user to a diffrent page
 		} catch (err) {}
 	};
 
