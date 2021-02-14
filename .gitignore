@@ -21,3 +21,4 @@ yarn-debug.log*
 yarn-error.log*
 package.json
 yarn.lock
+uploads
