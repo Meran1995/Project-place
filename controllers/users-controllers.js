@@ -24,6 +24,7 @@ const signup = async (req, res, next) => {
 			new HttpError("Invalid inputs passed, please check your data.", 422)
 		);
 	}
+
 	const { name, email, password } = req.body;
 
 	let existingUser;
@@ -48,7 +49,7 @@ const signup = async (req, res, next) => {
 	const createdUser = new User({
 		name,
 		email,
-		image: "https://hondnl.nl/wp-content/uploads/2020/12/pibull-trainen-1.jpeg",
+		image: req.file.path,
 		password,
 		places: [],
 	});
