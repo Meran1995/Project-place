@@ -22,3 +22,4 @@ yarn-error.log*
 package.json
 yarn.lock
 uploads
+nodemon.json 
